@@ -52,13 +52,15 @@ public class AccountController {
         }
     }
 
-    @RequestMapping(value = "/debit/{id2}/{value2}", method = RequestMethod.GET)
-    public ResponseEntity debit(@PathVariable("id2") int id, @PathVariable("value2") int value) {
+    @RequestMapping(value = "/debit/{id}", method = RequestMethod.GET)
+    public ResponseEntity debit(@PathVariable("id") int id, @RequestBody Map requestBody) {
         HttpHeaders headers = new HttpHeaders();
         JSONObject jsonObject = new JSONObject();
 
+        double amount = Double.parseDouble((String) requestBody.get("amount"));
+
         try {
-            accountService.debit(value, id);
+            accountService.debit(amount, id);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (InsufficientBalanceException e) {
             e.printStackTrace();
