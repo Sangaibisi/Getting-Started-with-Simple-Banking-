@@ -1,13 +1,15 @@
-package com.eteration.simplebanking.controller;
+package com.emrullah.aws.controller;
 
-import com.eteration.simplebanking.model.Account;
-import com.eteration.simplebanking.model.EtarationException.InsufficientBalanceException;
-import com.eteration.simplebanking.services.IAccountService;
+import com.emrullah.aws.model.exception.InsufficientBalanceException;
+import com.emrullah.aws.services.IAccountService;
+import com.emrullah.aws.model.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/account")
@@ -27,14 +29,15 @@ public class AccountController {
             headers.add("Account-Header", e.getMessage());
             return new ResponseEntity<>(headers,HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(headers,HttpStatus.OK);
+        return ResponseEntity.accepted().headers(headers).body(theAccount);
     }
 
-    @RequestMapping(value = "/credit/{id}/{value}",method = RequestMethod.GET)
-    public ResponseEntity credit(@PathVariable("id") int id, @PathVariable("value") int value) {
+    @RequestMapping(value = "/credit/{id}",method = RequestMethod.GET)
+    public ResponseEntity credit(@PathVariable("id") int id, @RequestBody Map requestBody) {
         HttpHeaders headers = new HttpHeaders();
+        double amount = Double.parseDouble((String) requestBody.get("amount"));
         try {
-            accountService.credit(value,id);
+            accountService.credit(amount,id);
             return new ResponseEntity<>(headers,HttpStatus.OK);
         }  catch (Exception e) {
             headers.add("Account-Header", e.getMessage());

@@ -1,12 +1,12 @@
-package com.eteration.simplebanking;
+package com.emrullah.aws;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.eteration.simplebanking.model.Account;
-import com.eteration.simplebanking.model.transaction.DepositTransaction;
-import com.eteration.simplebanking.model.EtarationException.InsufficientBalanceException;
-import com.eteration.simplebanking.model.transaction.PhoneBillPaymentTransaction;
-import com.eteration.simplebanking.model.transaction.WithdrawalTransaction;
+import com.emrullah.aws.model.transaction.DepositTransaction;
+import com.emrullah.aws.model.transaction.PhoneBillPaymentTransaction;
+import com.emrullah.aws.model.Account;
+import com.emrullah.aws.model.exception.InsufficientBalanceException;
+import com.emrullah.aws.model.transaction.WithdrawalTransaction;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package com.eteration.simplebanking;
+package com.emrullah.aws.common;
 
 public final class GeneralEnumerationDefinitions {
     private GeneralEnumerationDefinitions() {

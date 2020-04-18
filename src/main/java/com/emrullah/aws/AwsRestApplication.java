@@ -1,13 +1,13 @@
-package com.eteration.simplebanking;
+package com.emrullah.aws;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DemoApplication {
+public class AwsRestApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(AwsRestApplication.class, args);
 	}
 
 }

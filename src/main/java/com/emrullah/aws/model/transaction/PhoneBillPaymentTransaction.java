@@ -1,7 +1,7 @@
-package com.eteration.simplebanking.model.transaction;
+package com.emrullah.aws.model.transaction;
 
-import com.eteration.simplebanking.model.Account;
-import com.eteration.simplebanking.model.EtarationException.InsufficientBalanceException;
+import com.emrullah.aws.model.Account;
+import com.emrullah.aws.model.exception.InsufficientBalanceException;
 
 public class PhoneBillPaymentTransaction extends Transaction {
 
@@ -16,22 +16,14 @@ public class PhoneBillPaymentTransaction extends Transaction {
 
     @Override
     public void doTransaction(Account account) throws InsufficientBalanceException {
-        account.withdraw(value);
+        account.withdraw(super.getAmount());
     }
 
     public String getProviderName() {
         return providerName;
     }
 
-    public void setProviderName(String providerName) {
-        this.providerName = providerName;
-    }
-
     public String getPhoneNumber() {
         return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 }

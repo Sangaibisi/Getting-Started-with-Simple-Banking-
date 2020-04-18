@@ -1,9 +1,8 @@
-package com.eteration.simplebanking.model;
+package com.emrullah.aws.model;
 
-import com.eteration.simplebanking.GeneralEnumerationDefinitions;
-import com.eteration.simplebanking.model.EtarationException.InsufficientBalanceException;
-import com.eteration.simplebanking.model.transaction.Transaction;
-import com.eteration.simplebanking.model.transaction.TransactionStatus;
+import com.emrullah.aws.common.GeneralEnumerationDefinitions;
+import com.emrullah.aws.model.exception.InsufficientBalanceException;
+import com.emrullah.aws.model.transaction.Transaction;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -77,9 +76,9 @@ public class Account {
     public void post(Transaction transaction) throws InsufficientBalanceException {
         try {
             transaction.doTransaction(this);
-            transaction.setTransactionStatus(new TransactionStatus(GeneralEnumerationDefinitions.TransactionStatus.OK, ""));
+            transaction.setTransactionStatus(GeneralEnumerationDefinitions.TransactionStatus.OK.getShortCode());
         } catch (InsufficientBalanceException e) {
-            transaction.setTransactionStatus(new TransactionStatus(GeneralEnumerationDefinitions.TransactionStatus.ERROR, ""));
+            transaction.setTransactionStatus(GeneralEnumerationDefinitions.TransactionStatus.ERROR.getShortCode());
             throw e;
         } finally {
             transactionsHistory.add(transaction);

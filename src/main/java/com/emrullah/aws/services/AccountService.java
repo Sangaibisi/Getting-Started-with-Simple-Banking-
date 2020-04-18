@@ -1,10 +1,10 @@
-package com.eteration.simplebanking.services;
+package com.emrullah.aws.services;
 
-import com.eteration.simplebanking.dao.IAccountDAO;
-import com.eteration.simplebanking.model.Account;
-import com.eteration.simplebanking.model.EtarationException.InsufficientBalanceException;
-import com.eteration.simplebanking.model.transaction.DepositTransaction;
-import com.eteration.simplebanking.model.transaction.WithdrawalTransaction;
+import com.emrullah.aws.dao.IAccountDAO;
+import com.emrullah.aws.model.Account;
+import com.emrullah.aws.model.exception.InsufficientBalanceException;
+import com.emrullah.aws.model.transaction.DepositTransaction;
+import com.emrullah.aws.model.transaction.WithdrawalTransaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

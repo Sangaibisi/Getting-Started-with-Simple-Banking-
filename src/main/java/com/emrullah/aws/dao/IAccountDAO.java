@@ -1,6 +1,6 @@
-package com.eteration.simplebanking.dao;
+package com.emrullah.aws.dao;
 
-import com.eteration.simplebanking.model.Account;
+import com.emrullah.aws.model.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IAccountDAO extends JpaRepository<Account, Integer> {

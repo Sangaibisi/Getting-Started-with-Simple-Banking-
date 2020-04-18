@@ -1,4 +1,4 @@
-package com.eteration.simplebanking.model.EtarationException;
+package com.emrullah.aws.model.exception;
 
 public class InsufficientBalanceException extends Exception {
 
