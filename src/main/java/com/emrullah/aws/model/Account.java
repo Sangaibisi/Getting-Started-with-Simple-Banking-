@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="Account")
+@Table(name = "Account")
 public class Account {
 
     /**
@@ -18,21 +18,21 @@ public class Account {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private int id;
 
     /**
      * owner
      * Represent user's account number
      */
-    @Column(name="owner")
+    @Column(name = "owner")
     private String owner;
 
     /**
      * accountNumber
      * Represent user's account number
      */
-    @Column(name="accountNumber")
+    @Column(name = "accountNumber")
     private String accountNumber;
 
     /**
@@ -40,7 +40,7 @@ public class Account {
      * Balance must be BigDecimal instead of double
      * Cuz of we need to do calculation.
      */
-    @Column(name="balance")
+    @Column(name = "balance")
     private BigDecimal balance;
 
     /**
@@ -56,21 +56,20 @@ public class Account {
     /**
      * no-arg default constructor for Account model
      */
-    public Account(){}
+    public Account() {
+    }
 
     /**
      * @param owner
-     * @param accountNumber
-     *
-     * Trusted package constructor.
-     * Trusted simply means when Account initialized, balance always will be 0
-     * if balance is 0, val could not be INFLATED.
+     * @param accountNumber Trusted package constructor.
+     *                      Trusted simply means when Account initialized, balance always will be 0
+     *                      if balance is 0, val could not be INFLATED.
      */
     public Account(String owner, String accountNumber) {
         this.owner = owner;
         this.accountNumber = accountNumber;
-        this.transactionsHistory=new ArrayList<>();
-        this.balance= new BigDecimal(0);
+        this.transactionsHistory = new ArrayList<>();
+        this.balance = new BigDecimal(0);
     }
 
     public void post(Transaction transaction) throws InsufficientBalanceException {
@@ -85,15 +84,15 @@ public class Account {
         }
     }
 
-    public void deposit(double d){
-        balance=balance.add(BigDecimal.valueOf(d));
+    public void deposit(double d) {
+        balance = balance.add(BigDecimal.valueOf(d));
     }
 
-    public void withdraw(double d) throws InsufficientBalanceException{
-        if(balance.subtract(BigDecimal.valueOf(d)).compareTo(BigDecimal.ZERO) < 0){
+    public void withdraw(double d) throws InsufficientBalanceException {
+        if (balance.subtract(BigDecimal.valueOf(d)).compareTo(BigDecimal.ZERO) < 0) {
             throw new InsufficientBalanceException("Insufficient Balance");
         }
-        balance=balance.subtract(BigDecimal.valueOf(d));
+        balance = balance.subtract(BigDecimal.valueOf(d));
 
     }
 

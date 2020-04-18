@@ -1,5 +1,6 @@
 package com.emrullah.aws.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.emrullah.aws.model.exception.InsufficientBalanceException;
 import com.emrullah.aws.services.IAccountService;
 import com.emrullah.aws.model.Account;
@@ -25,38 +26,52 @@ public class AccountController {
         try {
             theAccount = accountService.findById(id);
 
-        }catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             headers.add("Account-Header", e.getMessage());
-            return new ResponseEntity<>(headers,HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(headers, HttpStatus.BAD_REQUEST);
         }
         return ResponseEntity.accepted().headers(headers).body(theAccount);
     }
 
-    @RequestMapping(value = "/credit/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/credit/{id}", method = RequestMethod.GET)
     public ResponseEntity credit(@PathVariable("id") int id, @RequestBody Map requestBody) {
         HttpHeaders headers = new HttpHeaders();
+        JSONObject jsonObject = new JSONObject();
+
         double amount = Double.parseDouble((String) requestBody.get("amount"));
+
         try {
-            accountService.credit(amount,id);
-            return new ResponseEntity<>(headers,HttpStatus.OK);
-        }  catch (Exception e) {
+            accountService.credit(amount, id);
+            return new ResponseEntity<>(headers, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            jsonObject.put("error", e.getMessage());
+            jsonObject.put("status", "NOT OKEY");
             headers.add("Account-Header", e.getMessage());
-            return new ResponseEntity<>(headers,HttpStatus.NOT_MODIFIED);
+            return ResponseEntity.accepted().headers(headers).body(jsonObject);
         }
     }
 
-    @RequestMapping(value = "/debit/{id2}/{value2}",method = RequestMethod.GET)
-    public ResponseEntity debit(@PathVariable("id2") int id, @PathVariable("value2") int value){
+    @RequestMapping(value = "/debit/{id2}/{value2}", method = RequestMethod.GET)
+    public ResponseEntity debit(@PathVariable("id2") int id, @PathVariable("value2") int value) {
         HttpHeaders headers = new HttpHeaders();
+        JSONObject jsonObject = new JSONObject();
+
         try {
-            accountService.debit(value,id);
+            accountService.debit(value, id);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (InsufficientBalanceException e) {
+            e.printStackTrace();
+            jsonObject.put("error", e.getMessage());
+            jsonObject.put("status", "NOT OKEY");
             headers.add("Account-Header", e.getMessage());
-            return new ResponseEntity<>(headers,HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).headers(headers).body(jsonObject);
         } catch (Exception e) {
+            e.printStackTrace();
+            jsonObject.put("error", e.getMessage());
+            jsonObject.put("status", "NOT OKEY");
             headers.add("Account-Header", e.getMessage());
-            return new ResponseEntity<>(headers,HttpStatus.NOT_MODIFIED);
+            return ResponseEntity.badRequest().headers(headers).body(jsonObject);
         }
     }
 }
