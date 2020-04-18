@@ -32,6 +32,8 @@ public abstract class Transaction {
     @Column(name="transactionStatus")
     private String transactionStatus;
 
+    public Transaction(){}
+
     public Transaction(double amount){
         this.id= UUID.randomUUID();
         this.amount=amount;
