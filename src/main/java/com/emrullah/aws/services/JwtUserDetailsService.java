@@ -18,7 +18,7 @@ public class JwtUserDetailsService implements UserDetailsService {
     private IUserDAO userDao;
 
     @Autowired
-    private PasswordEncoder bcryptEncoder;
+    private PasswordEncoder barestEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -33,7 +33,7 @@ public class JwtUserDetailsService implements UserDetailsService {
     public Users save(Users user) {
         Users newUser = new Users();
         newUser.setUsername(user.getUsername());
-        newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
+        newUser.setPassword(barestEncoder.encode(user.getPassword()));
         return userDao.save(newUser);
     }
 }
