@@ -18,4 +18,14 @@ public final class GeneralEnumerationDefinitions {
             return shortCode;
         }
     }
+
+    public enum USER_ROLE{
+        ADMIN("SUPERVISOR"),
+        USER("USER");
+
+        private String shortCode;
+        USER_ROLE(String shortCode){this.shortCode=shortCode;};
+
+        public String getShortCode(){return shortCode;}
+    }
 }
