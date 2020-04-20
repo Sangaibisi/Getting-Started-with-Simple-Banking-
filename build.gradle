@@ -2,6 +2,14 @@ plugins {
 	id 'org.springframework.boot' version '2.2.5.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
+	id 'war'
+}
+
+apply plugin: 'java'
+apply plugin: 'maven'
+
+repositories {
+	mavenCentral()
 }
 
 version = '1.0'
@@ -24,8 +32,23 @@ task fatJar(type: Jar) {
 	with jar
 }
 
-repositories {
-	mavenCentral()
+task createPom  {
+	pom {
+		project {
+			groupId 'scom.eteration.assignment'
+			artifactId '0.0.1-SNAPSHOT'
+			version '1.0.0-SNAPSHOT'
+
+			inceptionYear '2008'
+			licenses {
+				license {
+					name 'The Apache Software License, Version 2.0'
+					url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+					distribution 'repo'
+				}
+			}
+		}
+	}.writeTo("pom.xml")
 }
 
 configurations {
