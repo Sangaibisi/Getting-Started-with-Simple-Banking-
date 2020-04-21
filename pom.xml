@@ -7,7 +7,7 @@
     <artifactId>0.0.1-SNAPSHOT</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <inceptionYear>2008</inceptionYear>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
@@ -110,22 +110,26 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <requiresUnpack>
-                        <dependency>
-                            <groupId>org.jruby</groupId>
-                            <artifactId>jruby-complete</artifactId>
-                        </dependency>
-                    </requiresUnpack>
-                </configuration>
             </plugin>
+
+            <!-- Docker -->
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.0.1.RELEASE</version>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>1.4.10</version>
+                <executions>
+                    <execution>
+                        <id>default</id>
+                        <goals>
+                            <goal>build</goal>
+                            <!-- <goal>push</goal> -->
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
-                    <mainClass>com.emrullah.aws.AwsRestApplication</mainClass>
-                    <layout>ZIP</layout>
+                    <repository>sangaibisi/${project.artifactId}</repository>
+                    <tag>${project.version}</tag>
+                    <skipDockerInfo>true</skipDockerInfo>
                 </configuration>
             </plugin>
         </plugins>
