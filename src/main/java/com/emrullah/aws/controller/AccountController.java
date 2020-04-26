@@ -63,7 +63,6 @@ public class AccountController {
             accountService.debit(amount, id);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (InsufficientBalanceException e) {
-            e.printStackTrace();
             jsonObject.put("error", e.getMessage());
             jsonObject.put("status", "NOT OKEY");
             headers.add("Account-Header", e.getMessage());
